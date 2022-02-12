@@ -7,9 +7,6 @@ import pickle
 from keras.preprocessing.sequence import pad_sequences
 from discord_scraper import scrape_messages
 
-token = 'NzE3NTM5Mjk3NDg5NzE1MjUx.YGuq5g.pk6177YgMggmoJE1j5s6S6E8Vl8'
-channel_id = '941499119145484321'
-
 model_file = 'best_lstm_model.hdf5'
 
 with open('preppedData.pkl', 'rb') as f:
