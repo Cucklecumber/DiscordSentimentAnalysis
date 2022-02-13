@@ -1,13 +1,17 @@
 ########  imports  ##########
 from flask import Flask, jsonify, request, render_template
-from discord_conversation_rater import total_predictions, user_prediction_scores
+from discord_conversation_rater import run
 
 
+token = ''
+channel_id = ''
+
+total_predictions, user_prediction_scores, overall_judgement = run(token, channel_id)
 app = Flask(__name__)
 
 @app.route('/')
 def home_page():
-    example_embed='This string is from python'
+    example_embed = f'The final judgement: {overall_judgement} ------ Model prediction output (bad score, nuetral score, good score): {total_predictions} ------ Individual user output: {user_prediction_scores}'
     return render_template('index.html', embed=example_embed)
 
 @app.route('/test', methods=['GET', 'POST'])
@@ -20,16 +24,6 @@ def testfn():
     if request.method == 'POST':
         print(request.get_json())  # parse as JSON
         return 'Sucesss', 200
-
-@app.route('/getdata/<index_no>', methods=['GET','POST'])
-def data_get(index_no):
-    
-    if request.method == 'POST': # POST request
-        print(request.get_text())  # parse as text
-        return 'OK', 200
-    
-    else: # GET request
-        return str(data)
 
 data = total_predictions 
 app.run(debug=True)
